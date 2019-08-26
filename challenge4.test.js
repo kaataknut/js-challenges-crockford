@@ -1,6 +1,6 @@
 var test = require('tape');
-var { add, mul } = require('./challenge1.js');
-var { counter, revocable, m, addm, liftm } = require('./challenge4.js');
+var { add, mul, square } = require('./challenge1.js');
+var { counter, revocable, m, addm, liftm, exp } = require('./challenge4.js');
 
 test('from', function(t) {
   t.plan(4);
@@ -93,4 +93,12 @@ test('liftm', function(t) {
     },
     'passed number and m-object'
   );
+});
+
+test('exp', function(t) {
+  t.plan(3);
+
+  t.equal(exp([mul, 4, 3]), 12);
+  t.equal(exp(42), 42);
+  t.equal(exp([Math.sqrt, [add, [square, 3], [square, 4]]]), 5);
 });

@@ -34,6 +34,10 @@ function liftf(fn) {
   };
 }
 
+function square(a) {
+  return a * a;
+}
+
 exports.liftf = liftf;
 exports.identity = identity;
 exports.add = add;
@@ -41,3 +45,4 @@ exports.addf = addf;
 exports.sub = sub;
 exports.mul = mul;
 exports.identityf = identityf;
+exports.square = square;

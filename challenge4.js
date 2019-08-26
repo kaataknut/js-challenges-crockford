@@ -50,8 +50,13 @@ function liftm(binary, op) {
   };
 }
 
+function exp(value) {
+  return Array.isArray(value) ? value[0](exp(value[1]), exp(value[2])) : value;
+}
+
 exports.counter = counter;
 exports.revocable = revocable;
 exports.m = m;
 exports.addm = addm;
 exports.liftm = liftm;
+exports.exp = exp;
