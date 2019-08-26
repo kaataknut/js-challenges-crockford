@@ -30,9 +30,23 @@ function m(value, source) {
 }
 
 function addm(m1, m2) {
-  return {
-    value: m1.value + m2.value,
-    source: '(' + m1.source + '+' + m2.source + ')',
+  return m(m1.value + m2.value, '(' + m1.source + '+' + m2.source + ')');
+}
+
+function liftm(binary, op) {
+  return function(m1, m2) {
+    if (typeof m1 === 'number') {
+      m1 = m(m1, m1);
+    }
+
+    if (typeof m2 === 'number') {
+      m2 = m(m2, m2);
+    }
+
+    return m(
+      binary(m1.value, m2.value),
+      '(' + m1.source + op + m2.source + ')'
+    );
   };
 }
 
@@ -40,3 +54,4 @@ exports.counter = counter;
 exports.revocable = revocable;
 exports.m = m;
 exports.addm = addm;
+exports.liftm = liftm;

@@ -1,6 +1,6 @@
 var test = require('tape');
-var { add } = require('./challenge1.js');
-var { counter, revocable, m, addm } = require('./challenge4.js');
+var { add, mul } = require('./challenge1.js');
+var { counter, revocable, m, addm, liftm } = require('./challenge4.js');
 
 test('from', function(t) {
   t.plan(4);
@@ -53,4 +53,44 @@ test('addm', function(t) {
     value: 7,
     source: '(3+four)',
   });
+});
+
+test('liftm', function(t) {
+  t.plan(4);
+
+  var liftmAdd = liftm(add, '+');
+  var liftmMul = liftm(mul, '*');
+
+  t.deepEqual(
+    liftmAdd(m(3), m(4)),
+    {
+      value: 7,
+      source: '(3+4)',
+    },
+    'passed m-objects'
+  );
+  t.deepEqual(
+    liftmMul(m(3), m(4)),
+    {
+      value: 12,
+      source: '(3*4)',
+    },
+    'passed m-objects'
+  );
+  t.deepEqual(
+    liftmAdd(3, 4),
+    {
+      value: 7,
+      source: '(3+4)',
+    },
+    'passed numbers'
+  );
+  t.deepEqual(
+    liftmMul(3, m(4)),
+    {
+      value: 12,
+      source: '(3*4)',
+    },
+    'passed number and m-object'
+  );
 });
