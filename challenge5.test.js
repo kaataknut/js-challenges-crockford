@@ -1,6 +1,6 @@
 var test = require('tape');
-var { add, mul, sub } = require('./challenge1.js');
-var { arrayg, addg, liftg } = require('./challenge5.js');
+var { add, mul, sub, square } = require('./challenge1.js');
+var { arrayg, addg, liftg, continuize } = require('./challenge5.js');
 
 test('addg', function(t) {
   t.plan(5);
@@ -34,4 +34,18 @@ test('arrayg', function(t) {
   t.deepEqual(arrayg(), []);
   t.deepEqual(arrayg(1)(), [1]);
   t.deepEqual(arrayg(1)(2)(3)(), [1, 2, 3]);
+});
+
+test('continuize', function(t) {
+  t.plan(2);
+
+  var sqr = continuize(Math.sqrt);
+  sqr(function(value) {
+    t.equal(value, 9);
+  }, 81);
+
+  var squaren = continuize(square);
+  squaren(function(value) {
+    t.equal(value, 49);
+  }, 7);
 });

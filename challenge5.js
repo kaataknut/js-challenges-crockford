@@ -41,6 +41,13 @@ function arrayg(first) {
   return more(first);
 }
 
+function continuize(unary) {
+  return function(callback, value) {
+    callback(unary(value));
+  };
+}
+
 exports.addg = addg;
 exports.liftg = liftg;
 exports.arrayg = arrayg;
+exports.continuize = continuize;
